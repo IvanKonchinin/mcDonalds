@@ -42,7 +42,7 @@ const LoginBtn = styled.button`
   height:100%; 
   display:flex;
   align-items:flex-end;
-  cursor:pointer;
+  
 `;
 
 export const NavBar = () => (
