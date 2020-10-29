@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ModalBtn = styled.button`
+export const ButtonModal = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

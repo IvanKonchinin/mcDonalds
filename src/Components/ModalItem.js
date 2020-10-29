@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {ModalBtn} from './ButtonModal';
+import {ButtonModal} from './ButtonModal';
 
 const Overlay = styled.div`
   position:fixed;
@@ -26,23 +26,23 @@ const Banner = styled.div`
   background:url(${({img}) => img});
   background-size:cover;
   background-position:center;
-  margin-bottom:20px;
 `;
 
 const ModalTitle = styled.div`
   width:100%;
   display:flex;
   justify-content:space-between;
-  padding:0 40px;
+  
 `;
 
 
 
 const ModalItemWrap = styled.div`
   display: flex;
-  height: 350px;
+  height: calc(100% - 200px);
   flex-direction: column;
   justify-content: space-between;
+  padding:30px 40px;
 `;
 
 
@@ -67,7 +67,7 @@ export const ModalItem = ({openItem, setOpenItem}) => {
       <h3>{openItem.name}</h3>
       <h3>{openItem.price}&#8381;</h3>
     </ModalTitle>
-    <ModalBtn>Добавить</ModalBtn> 
+    <ButtonModal>Добавить</ButtonModal> 
     </ModalItemWrap>
     </Modal>
   </Overlay>
