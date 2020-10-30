@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import menuBannerImg from '../image/banner.png';
+import menuBannerImg from '../../image/banner.png';
 
 export const MenuBanner = styled.div`
   height:210px;
