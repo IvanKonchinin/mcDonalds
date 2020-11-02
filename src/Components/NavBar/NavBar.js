@@ -13,7 +13,7 @@ const NavBarStyled = styled.header`
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:15px;
+  padding:0 15px;
   background-color:#299B01;
   color:white;
 `;
@@ -32,9 +32,20 @@ const ImgLogo = styled.img`
   width:50px;
 `;
 
+const ImgLogin = styled.img`
+  
+`;
+
+const LoginWrap = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+  height: 75%;
+`;
+
 const LoginBtn = styled.button`
   color:white;
-  background:transparent url(${loginImg});
+  background:transparent;
   background-repeat:no-repeat;
   background-position:top;
   background-size: 50%;
@@ -51,7 +62,10 @@ export const NavBar = () => (
       <ImgLogo src={logoImg} alt="logo"/>
       <H1>McDonalds</H1>
     </Logo>
-    <LoginBtn type="button">ВОЙТИ</LoginBtn>
+    <LoginWrap>
+      <ImgLogin src={loginImg} alt="Войти"/>
+      <LoginBtn type="button">ВОЙТИ</LoginBtn>
+    </LoginWrap>
   </NavBarStyled>
 
 );

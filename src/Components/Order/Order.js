@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {ButtonModal} from '../Style/ButtonModal';
 import {OrderListItem} from './OrderListItem';
+import { totalPriceItems } from '../Functions/secondaryFunction';
+import { formatCurrency } from '../Functions/secondaryFunction';
 
 const OrderStyled = styled.section`
   position:fixed;
@@ -46,6 +48,9 @@ const EmptyList = styled.p`
 `;
 
 export const Order = ({orders}) => {
+
+  const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0)
+
   return (
 
     <OrderStyled>
@@ -60,7 +65,7 @@ export const Order = ({orders}) => {
       <Total>
         <span>Итого</span>
         <span>5</span>
-        <TotalPrice>850 P</TotalPrice>
+        <TotalPrice>{formatCurrency(total)}</TotalPrice>
         
       </Total>
       <ButtonModal>Оформить</ButtonModal>
