@@ -13,7 +13,6 @@ function App() {
   const orders = useOrders();
   return (
     <>
-      
       <GlobalStyle/>
       <NavBar/>
       <Order {...orders} />

@@ -8,6 +8,7 @@ import { formatCurrency } from '../Functions/secondaryFunction';
 const OrderItemStyled = styled.li`
   display:flex;
   margin:15px 0;
+  flex-wrap:wrap;
 `;
 
 const ItemName = styled.span`
@@ -32,11 +33,25 @@ const TrashButton = styled.button`
   cursor:pointer;
 `;
 
-export const OrderListItem = ({order}) => (
-  <OrderItemStyled>
-    <ItemName>{order.name}</ItemName>
+const Toppings = styled.div`
+  color:#9A9A9A;
+  font-size:14px;
+  width:100%;
+`;
+
+export const OrderListItem = ({order}) => {
+
+  const topping = order.topping.filter(item => item.checked)
+      .map(item => item.name)
+      .join(', ');
+
+  return (
+    <OrderItemStyled>
+    <ItemName>{order.name} {order.choice}</ItemName>
     <span>{order.count}</span>
     <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
     <TrashButton/>
+    {topping && <Toppings>Допы: {topping}</Toppings>}
   </OrderItemStyled>
-);
+  )
+};
