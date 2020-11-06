@@ -6,16 +6,32 @@ import {ModalItem} from './Components/Modal/ModalItem';
 import {Order} from './Components/Order/Order';
 import { useOpenItem } from './Components/Hooks/useOpenItem';
 import { useOrders } from './Components/Hooks/useOrders';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useAuth } from './Components/Hooks/useAuth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCvxzVXY200AkxkwNHlQlz7dKgCJYqbNy0",
+  authDomain: "mcdonalds-167a9.firebaseapp.com",
+  databaseURL: "https://mcdonalds-167a9.firebaseio.com",
+  projectId: "mcdonalds-167a9",
+  storageBucket: "mcdonalds-167a9.appspot.com",
+  messagingSenderId: "369252685140",
+  appId: "1:369252685140:web:1d0f0b55ddfe1e1db7a4c1"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 function App() {
 
+  const auth = useAuth(firebase.auth);
   const openItem = useOpenItem();
   const orders = useOrders();
   return (
     <>
       <GlobalStyle/>
-      <NavBar/>
-      <Order {...orders} {...openItem}/>
+      <NavBar {...auth}/>
+      <Order {...orders} {...openItem} {...auth}/>
       <Menu {...openItem}/>
       { openItem.openItem && <ModalItem {...openItem} {...orders}/> }
       

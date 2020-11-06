@@ -41,6 +41,7 @@ const LoginWrap = styled.div`
   flex-direction:column;
   justify-content: space-between;
   height: 75%;
+  text-align:center;
 `;
 
 const LoginBtn = styled.button`
@@ -52,20 +53,45 @@ const LoginBtn = styled.button`
   border:none;
   height:100%; 
   display:flex;
-  align-items:flex-end;
-  
 `;
 
-export const NavBar = () => (
+const User = styled.div`
+  display:flex;
+  align-items:center;
+  text-align:center;
+`;
+const LogOut = styled.span`
+  font-size:20px;
+  font-weight:700px;
+  cursor: pointer;
+  margin-right:30px;
+`;
+
+const Figure = styled.figure`
+  margin: 0 30px;
+`;
+
+export const NavBar = ({authentification, logIn, logOut}) => (
   <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImg} alt="logo"/>
       <H1>McDonalds</H1>
     </Logo>
-    <LoginWrap>
-      <ImgLogin src={loginImg} alt="Войти"/>
-      <LoginBtn type="button">ВОЙТИ</LoginBtn>
-    </LoginWrap>
+    {authentification ? 
+    <User>
+      <Figure>
+        <ImgLogin src={loginImg} alt={authentification.displayName}/>
+        <figcaption>{authentification.displayName}</figcaption>
+      </Figure>
+      <LogOut title="Выйти" onClick={logOut}>X</LogOut>
+    </User> :
+    <LoginWrap onClick={logIn}>
+      <Figure>
+        <ImgLogin src={loginImg} alt="Войти"/>
+        <LoginBtn>Войти</LoginBtn>
+      </Figure>
+      
+    </LoginWrap>}
   </NavBarStyled>
 
 );

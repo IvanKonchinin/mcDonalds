@@ -47,7 +47,7 @@ const EmptyList = styled.p`
   text-align:center;
 `;
 
-export const Order = ({orders, setOrders, setOpenItem}) => {
+export const Order = ({orders, setOrders, setOpenItem, logIn, authentification}) => {
 
   const deleteItem = index => {
     const newOrders = orders.filter((item, i) => 
@@ -60,6 +60,10 @@ export const Order = ({orders, setOrders, setOpenItem}) => {
 
   const totalCounter = orders.reduce((result, order) => order.count + result, 0);
   
+  const outOrder = () => {
+    console.log(orders.map((order) => order={order}));
+  }
+
   return (
 
     <OrderStyled>
@@ -83,7 +87,10 @@ export const Order = ({orders, setOrders, setOpenItem}) => {
         <TotalPrice>{formatCurrency(total)}</TotalPrice>
         
       </Total>
-      <ButtonModal>Оформить</ButtonModal>
+      {authentification ? 
+      <ButtonModal onClick={outOrder}>Оформить</ButtonModal>
+      : <ButtonModal onClick={logIn}>Оформить</ButtonModal>
+      }
     </OrderStyled>  
   )
 }
