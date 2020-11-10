@@ -4,6 +4,7 @@ import {ButtonModal} from '../Style/ButtonModal';
 import {OrderListItem} from './OrderListItem';
 import { totalPriceItems } from '../Functions/secondaryFunction';
 import { formatCurrency } from '../Functions/secondaryFunction';
+import { projection } from '../Functions/secondaryFunction';
 
 const OrderStyled = styled.section`
   position:fixed;
@@ -47,7 +48,29 @@ const EmptyList = styled.p`
   text-align:center;
 `;
 
-export const Order = ({orders, setOrders, setOpenItem, logIn, authentification}) => {
+const rulesData = {
+  itenName: ['name'],
+  price:['price'],
+  count:['count'],
+  topping:['topping', arr => arr.filter(obj => obj.checked).map(obj => obj.name), arr => arr.length ? arr : 'no topping'],
+  choice:['choice', item => item ? item : 'no choices'],
+}
+
+export const Order = ({orders, setOrders, setOpenItem, logIn, authentification, firebaseDatabase}) => {
+  
+  const dataBase = firebaseDatabase();
+
+  const sendOrder = () => {
+    
+    const newOrder = orders.map(projection(rulesData));
+    dataBase.ref('orders').push().set({
+      nameClient:authentification.displayName,
+      email:authentification.email,
+      order:newOrder
+    });
+    setOrders([]);
+
+  }
 
   const deleteItem = index => {
     const newOrders = orders.filter((item, i) => 
@@ -61,7 +84,7 @@ export const Order = ({orders, setOrders, setOpenItem, logIn, authentification})
   const totalCounter = orders.reduce((result, order) => order.count + result, 0);
   
   const outOrder = () => {
-    console.log(orders.map((order) => order={order}));
+    sendOrder();
   }
 
   return (
@@ -87,9 +110,11 @@ export const Order = ({orders, setOrders, setOpenItem, logIn, authentification})
         <TotalPrice>{formatCurrency(total)}</TotalPrice>
         
       </Total>
-      {authentification ? 
-      <ButtonModal onClick={outOrder}>Оформить</ButtonModal>
-      : <ButtonModal onClick={logIn}>Оформить</ButtonModal>
+      {<ButtonModal onClick={
+          authentification ? outOrder() : logIn()
+        }>Оформить
+      </ButtonModal>
+      
       }
     </OrderStyled>  
   )
