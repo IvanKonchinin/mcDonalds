@@ -111,7 +111,7 @@ export const Order = ({orders, setOrders, setOpenItem, logIn, authentification, 
         
       </Total>
       {<ButtonModal onClick={
-          authentification ? outOrder() : logIn()
+          authentification ? outOrder : logIn
         }>Оформить
       </ButtonModal>
       
